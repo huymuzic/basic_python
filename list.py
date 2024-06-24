@@ -131,3 +131,28 @@ dict_a = {'a': 1, 'b': 2}
 dict_b = {'b': 3, 'c': 4}
 dict_c = {**dict_a, **dict_b}
 print(dict_c)
+
+largest = None
+smallest = None
+numbers = []
+
+while True:
+    num = input("Enter a number: ")
+    if num == "done":
+        break
+    try:
+        num = int(num)
+        numbers.append(num)
+
+    except ValueError:
+        print("Invalid input")
+        continue
+    
+    if largest is None or num > largest:
+        largest = num
+    if smallest is None or num < smallest:
+        smallest = num
+
+print("Maximum:", largest)
+print("Minimum:", smallest)
+
