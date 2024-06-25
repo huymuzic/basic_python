@@ -1,5 +1,5 @@
 import urllib.request
-import re
+from bs4 import BeautifulSoup
 
 def fetch_and_print(url):
     try:
@@ -13,17 +13,17 @@ def find_urls(url):
     try:
         fhand = urllib.request.urlopen(url)
         html = fhand.read().decode()
+        soup = BeautifulSoup(html, 'html.parser')
 
-        # Find all URLs in href attributes
-        pattern = r'href="([^"]+)"'
-        urls = re.findall(pattern, html)
+        # Find all URLs in href attributes using BeautifulSoup
+        urls = [a['href'] for a in soup.find_all('a', href=True)]
         return urls
     except Exception as e:
         print(f"Failed to retrieve {url}: {e}")
         return []
 
 def main():
-    start_url = 'https://cosmic-travel.onrender.com/home'
+    start_url = 'https://www.wikipedia.org/'
     to_visit = [start_url]
     visited = set()
 
